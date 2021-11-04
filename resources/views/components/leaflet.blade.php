@@ -31,7 +31,11 @@
         iconSize: [{{$marker['iconSizeX'] ?? 32}} , {{ $marker['iconSizeY'] ?? 32 }}],
        });
      @endif
-    var marker = L.marker([{{$marker['lat'] ?? $marker[0]}}, {{$marker['long'] ?? $marker[1]}},], {{ isset($marker['icon']) ? '{icon: icon}' : '' }}).addTo(mymap).bindPopup('{{ $marker['popup'] }}');
+    var marker = L.marker([{{$marker['lat'] ?? $marker[0]}}, {{$marker['long'] ?? $marker[1]}},], {{ isset($marker['icon']) ? '{icon: icon}' : '' }}).addTo(mymap)
+    @if(isset($marker['popup']))
+        .bindPopup('{!! $marker['popup'] !!}')
+    @endif
+    ;
     @endforeach
 
     @if($tileHost === 'mapbox')
